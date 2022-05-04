@@ -14,3 +14,8 @@ class BaseModel(db.Model):
     def to_json(self):
         pass
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+        return self
+
