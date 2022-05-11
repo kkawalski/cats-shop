@@ -1,11 +1,13 @@
 from base64 import b64encode, b64decode
 
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db
 from app.models import BaseModel
 
-class User(BaseModel):
+
+class User(UserMixin, BaseModel):
     __tablename__ = "users"
     
     name = db.Column(db.String(50), nullable=False)

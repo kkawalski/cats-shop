@@ -13,4 +13,4 @@ class Cat(BaseModel):
         }
 
     def __repr__(self) -> str:
-        return f"<User {self.name}>"
+        return f"<Cat {self.name}>"

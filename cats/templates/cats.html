@@ -1,0 +1,28 @@
+<body>
+    <div>
+        {% if current_user.is_authenticated %}
+            <div>Hello, {{ current_user }}</div>
+            <a href="{{ url_for('users.logout') }}">Logout</a>
+        {% endif %}
+    </div>
+    <div>
+        {% for cat in cats %}
+            <div>{{ cat }}</div>
+        {% endfor %}
+    </div>
+    <div>
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.name.label }}
+                {{ form.name }}
+                {% for error in form.name.errors %}
+                    <div style="color: red">{{ error }}</div>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.submit() }}
+            </p>
+        </form>
+    </div>
+</body>
