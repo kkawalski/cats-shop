@@ -9,6 +9,7 @@ from flask_jwt_extended import create_access_token, create_refresh_token, curren
 from app import login_manager, jwt
 from users.models import User
 from users.forms import LoginForm, RegisterForm
+from users.shemas import user_retrieve_schema, users_list_schema
 
 users_blueprint = Blueprint("users", __name__, url_prefix="/users", template_folder="templates")
 
@@ -170,3 +171,15 @@ def jwt_login():
 def jwt_refresh():
     access_token = create_access_token(current_user)
     return jsonify({"access_token": access_token})
+
+
+@users_blueprint.route("/api", methods=["GET"])
+def users_list_create():
+    users = User.query.all()
+    return jsonify(users_list_schema.dump(users))
+
+
+@users_blueprint.route("/me", methods=["GET"])
+@jwt_required()
+def me():
+    return user_retrieve_schema.jsonify(current_user)
